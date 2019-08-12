@@ -10,7 +10,7 @@ using StLouisRestaurantGuide.ViewModels.Categories;
 
 namespace StLouisRestaurantGuide.Controllers
 {
-    public class CategoryController
+    public class CategoryController : Controller
     {
         private ApplicationDbContext context;
 
@@ -19,12 +19,18 @@ namespace StLouisRestaurantGuide.Controllers
             this.context = context;
         }
 
-        //public IActionResult Index()
+        public IActionResult Index()
+        {
+
+            List<CategoryListItemViewModel> categories = CategoryListItemViewModel.GetCategories(context);
+            return View(categories);
+
+        }
+
+        //[HttpGet]
+        //public IActionResult Create()
         //{
-
-            //List<CategoryListItemViewModel> categories = CategoryListItemViewModel.GetCategories(context);
-            //return View(categories);
-
+        //    return View();
         //}
     }
 }
