@@ -18,7 +18,6 @@
 
 
   <ItemGroup>
-    <Folder Include="ViewModels\Restaurants\" />
     <Folder Include="ViewModels\RestaurantReviews\" />
   </ItemGroup>
 

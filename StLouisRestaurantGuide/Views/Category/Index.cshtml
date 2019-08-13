@@ -3,4 +3,23 @@
 @{
     ViewData["Title"] = "Index";
 }
-<h1>List of </h1>
+<h1>List of St. Louis Restaurant Categories: </h1>
+
+<div>
+
+    <hr />
+    <table border="1" cellpadding="10">
+        <tr>
+            <th bgcolor="#cce6ff">Category Id</th>
+            <th bgcolor="#cce6ff">Category Name</th>
+        </tr>
+
+        @foreach (var category in Model)
+        {
+            <tr>
+                <td>@category.Id</td>
+                <td>@category.Name</td>
+            </tr>
+        }
+    </table>
+</div>

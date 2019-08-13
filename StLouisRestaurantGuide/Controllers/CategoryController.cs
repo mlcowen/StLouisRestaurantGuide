@@ -27,10 +27,17 @@ namespace StLouisRestaurantGuide.Controllers
 
         }
 
-        //[HttpGet]
-        //public IActionResult Create()
-        //{
-        //    return View();
-        //}
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(int Id, CategoryCreateViewModel model)
+        {
+            model.Persist(context);
+            return RedirectToAction(controllerName: "Category", actionName: "Index");
+        }
     }
 }
