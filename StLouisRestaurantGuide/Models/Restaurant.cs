@@ -14,7 +14,6 @@ namespace StLouisRestaurantGuide.Models
         public string Address { get; set; }
         public string Region { get; set; }
         public List<RestaurantReview> RestaurantReviews { get; set; }
-        //public Category Category { get; set; }
         public IList<CategoryRestaurant> CategoryRestaurants { get; set; }
     }
 }
