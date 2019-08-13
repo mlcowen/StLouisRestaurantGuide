@@ -23,20 +23,34 @@ namespace StLouisRestaurantGuide.Controllers
         //public IActionResult Index()
         //{
         //    //List<Location> locations = context.Locations.ToList();
-        //    // where tells the query to get the row that matches the id of the location. This pulls data from the locationReview table 
+        //   // where tells the query to get the row that matches the id of the location. This pulls data from the locationReview table 
         //    //List<Location> locations = context.Locations.Include(a => a.LocationReviews).ToList();
 
-        //    List<RestaurantListItemViewModel> restaurants = RestaurantListItemViewModel.GetRestaurants(context);
+        //   List<RestaurantListItemViewModel> restaurants = RestaurantListItemViewModel.GetRestaurants(context);
 
-        //    return View(restaurants);
-        //}
+        ////    return View(restaurants);
+        ////}
 
-        //[HttpGet]
-        //public IActionResult Create()
+        [HttpGet]
+        public IActionResult Create()
+        {
+            RestaurantCreateViewModel model = new RestaurantCreateViewModel(context);
+            return View(model);
+        }
+
+        //[HttpPost]
+        //public IActionResult Create(RestaurantCreateViewModel model)
         //{
-        //    RestaurantCreateViewModel model = new RestaurantCreateViewModel(context);
-        //    return View(model);
+        //    if (!ModelState.IsValid)
+        //    {
+        //        model.ResetCategoryList(context);
+        //        return View(model);
+        //    }
+
+        //    model.Persist(context);
+        //    return RedirectToAction(actionName: nameof(Index));
         //}
+
 
     }
 }

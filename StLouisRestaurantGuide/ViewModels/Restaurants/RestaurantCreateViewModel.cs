@@ -26,5 +26,44 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
 
         [Required]
         public string Region { get; set; }
+
+        public RestaurantCreateViewModel() { }
+
+        public RestaurantCreateViewModel(ApplicationDbContext context)
+        {
+            //OrderBy(s=>s.name)tells our code to alphabetize results by the name
+            this.Categories = context.Categories.OrderBy(s => s.Name).ToList();
+        }
+
+        public void Persist(ApplicationDbContext context)
+        {
+            Models.Restaurant restaurant = new Models.Restaurant
+            {
+                Name = this.Name,
+                Description = this.Description,
+                HoursOfOperation = this.HoursOfOperation,
+                Address = this.Address,
+                Region = this.Region
+                //CategoryId = this.CategoryIds,
+                //Categories = this.Categories,
+            };
+            context.Restaurants.Add(restaurant);
+            //context.SaveChanges();
+
+
+            List<CategoryRestaurant> categoryRestaurants = CreateManyToManyRelationships(restaurant.Id);
+            restaurant.CategoryRestaurants = categoryRestaurants;
+            context.SaveChanges();
+        }
+
+        private List<CategoryRestaurant> CreateManyToManyRelationships(int locationId)
+        {
+            return CategoryIds.Select(catId => new CategoryRestaurant { LocationId = locationId, CategoryId = catId }).ToList();
+        }
+
+        internal void ResetCategoryList(ApplicationDbContext context)
+        {
+            this.Categories = context.Categories.ToList();
+        }
     }
 }
