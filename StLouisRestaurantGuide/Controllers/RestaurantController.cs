@@ -20,16 +20,16 @@ namespace StLouisRestaurantGuide.Controllers
             this.context = context;
         }
 
-        //public IActionResult Index()
-        //{
-        //    //List<Location> locations = context.Locations.ToList();
-        //   // where tells the query to get the row that matches the id of the location. This pulls data from the locationReview table 
-        //    //List<Location> locations = context.Locations.Include(a => a.LocationReviews).ToList();
+        public IActionResult Index()
+        {
+            //List<Restaurant> restaurants = context.Restaurants.ToList();
+            // where tells the query to get the row that matches the id of the restaurant. This pulls data from the restaurantReview table 
+            //List<Restaurant> restaurants = context.Restaurants.Include(a => a.RestaurantReviews).ToList();
 
-        //   List<RestaurantListItemViewModel> restaurants = RestaurantListItemViewModel.GetRestaurants(context);
+            List<RestaurantListItemViewModel> restaurants = RestaurantListItemViewModel.GetRestaurants(context);
 
-        ////    return View(restaurants);
-        ////}
+            return View(restaurants);
+        }
 
         [HttpGet]
         public IActionResult Create()
@@ -38,18 +38,19 @@ namespace StLouisRestaurantGuide.Controllers
             return View(model);
         }
 
-        //[HttpPost]
-        //public IActionResult Create(RestaurantCreateViewModel model)
-        //{
-        //    if (!ModelState.IsValid)
-        //    {
-        //        model.ResetCategoryList(context);
-        //        return View(model);
-        //    }
+        [HttpPost]
+        public IActionResult Create(RestaurantCreateViewModel model)
+        {
+            if (!ModelState.IsValid)
+            {
+                model.ResetCategoryList(context);
+                return View(model);
+            }
 
-        //    model.Persist(context);
-        //    return RedirectToAction(actionName: nameof(Index));
-        //}
+            model.Persist(context);
+            return RedirectToAction(actionName: nameof(Index));
+        }
+
 
 
     }

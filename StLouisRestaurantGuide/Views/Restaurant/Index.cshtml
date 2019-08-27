@@ -5,3 +5,46 @@
 }
 
 <h1>List of St. Louis Restaurants:</h1>
+
+<div>
+
+    <hr />
+    <table border="1" cellpadding="10">
+        <tr>
+            <th bgcolor="#cce6ff">Location</th>
+            <th width="40%" bgcolor="#cce6ff">Description</th>
+            <th bgcolor="#cce6ff">Hours Of Operation</th>
+            <th bgcolor="#cce6ff">Average Rating</th>
+            <th bgcolor="#cce6ff">Rate</th>
+            <th bgcolor="#cce6ff">Edit</th>
+        </tr>
+        @foreach (var restaurant in Model)
+
+        {
+            <tr>
+                <td> <a asp-controller="Location" asp-action="Details" asp-route-id="@restaurant.Id">@restaurant.Name</a></td>
+                <td>@restaurant.Description</td>
+                <td>@restaurant.HoursOfOperation</td>
+                @if (restaurant.RestaurantReviews.Count > 0)
+                {
+                    <td>@restaurant.AverageRating</td>
+                }
+                else
+                {
+                    <td>not reviewed</td>
+                }
+                <td>
+                    <a asp-controller="RestaurantReview" asp-action="Create" asp-route-LocationId="@restaurant.Id">Rate</a>
+                </td>
+                <td>
+                    <a asp-controller="Restaurant" asp-action="Edit" asp-route-LocationId="@restaurant.Id">Edit</a>
+                </td>
+
+            </tr>
+        }
+
+    </table>
+</div>
+<div>
+    
+</div>

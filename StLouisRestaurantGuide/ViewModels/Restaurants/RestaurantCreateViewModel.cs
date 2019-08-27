@@ -44,8 +44,7 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
                 HoursOfOperation = this.HoursOfOperation,
                 Address = this.Address,
                 Region = this.Region
-                //CategoryId = this.CategoryIds,
-                //Categories = this.Categories,
+               
             };
             context.Restaurants.Add(restaurant);
             //context.SaveChanges();
