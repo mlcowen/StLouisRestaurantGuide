@@ -9,7 +9,7 @@ namespace StLouisRestaurantGuide.Models
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }
-        public int LocationId { get; set; }
+        public int RestaurantId { get; set; }
         public virtual Category Category { get; set; }
         public virtual Restaurant Restaurant { get; set; }
 

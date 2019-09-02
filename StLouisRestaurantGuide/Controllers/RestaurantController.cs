@@ -51,6 +51,25 @@ namespace StLouisRestaurantGuide.Controllers
             return RedirectToAction(actionName: nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Edit(int RestaurantId)
+        {
+            return View(new RestaurantEditViewModel(RestaurantId, context));
+        }
+
+        [HttpPost]
+        public IActionResult Edit(int RestaurantId, RestaurantEditViewModel restaurant)
+        {
+            if (!ModelState.IsValid)
+            {
+                restaurant.ResetCategoryList(context);
+                return View(restaurant);
+                //return View(new RestaurantEditViewModel());
+            }
+
+            restaurant.Persist(RestaurantId, context);
+            return RedirectToAction(actionName: nameof(Index));
+        }
 
 
     }

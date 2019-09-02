@@ -51,7 +51,7 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
             this.Categories = context.Categories.ToList();
 
             // populate our placeholder list of activeCategoryId. we query the categorylocations table for categories that contain this restaurantId
-            this.ActiveCategoryIds = context.CategoryRestaurants.Where(a => a.LocationId == RestaurantId).ToList();
+            this.ActiveCategoryIds = context.CategoryRestaurants.Where(a => a.RestaurantId == RestaurantId).ToList();
 
             // we then need to convert the ActiveCategoryIds to a type of list<int> we do that with this for loop. 
             // note: this is messy and we can probably do this some other way with less code and less converting from one type to another. 
@@ -66,11 +66,11 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
 
         }
 
-        public void Persist(int LocationId, ApplicationDbContext context)
+        public void Persist(int RestaurantId, ApplicationDbContext context)
         {
             Models.Restaurant restaurant = new Models.Restaurant
             {
-                Id = LocationId,
+                Id = RestaurantId,
                 Name = this.Name,
                 Description = this.Description,
                 HoursOfOperation = this.HoursOfOperation,
@@ -84,9 +84,9 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
             context.SaveChanges();
         }
 
-        private List<CategoryRestaurant> CreateManyToManyRelationships(int locationId)
+        private List<CategoryRestaurant> CreateManyToManyRelationships(int restaurantId)
         {
-            return CategoryIds.Select(catId => new CategoryRestaurant { LocationId = locationId, CategoryId = catId }).ToList();
+            return CategoryIds.Select(catId => new CategoryRestaurant { RestaurantId = restaurantId, CategoryId = catId }).ToList();
         }
 
         internal void ResetCategoryList(ApplicationDbContext context)

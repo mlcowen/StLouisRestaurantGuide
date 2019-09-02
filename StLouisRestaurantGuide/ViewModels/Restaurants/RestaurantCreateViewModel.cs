@@ -55,9 +55,9 @@ namespace StLouisRestaurantGuide.ViewModels.Restaurants
             context.SaveChanges();
         }
 
-        private List<CategoryRestaurant> CreateManyToManyRelationships(int locationId)
+        private List<CategoryRestaurant> CreateManyToManyRelationships(int restaurantId)
         {
-            return CategoryIds.Select(catId => new CategoryRestaurant { LocationId = locationId, CategoryId = catId }).ToList();
+            return CategoryIds.Select(catId => new CategoryRestaurant { RestaurantId = restaurantId, CategoryId = catId }).ToList();
         }
 
         internal void ResetCategoryList(ApplicationDbContext context)

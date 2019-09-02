@@ -34,10 +34,10 @@
                     <td>not reviewed</td>
                 }
                 <td>
-                    <a asp-controller="RestaurantReview" asp-action="Create" asp-route-LocationId="@restaurant.Id">Rate</a>
+                    <a asp-controller="RestaurantReview" asp-action="Create" asp-route-RestaurantId="@restaurant.Id">Rate</a>
                 </td>
                 <td>
-                    <a asp-controller="Restaurant" asp-action="Edit" asp-route-LocationId="@restaurant.Id">Edit</a>
+                    <a asp-controller="Restaurant" asp-action="Edit" asp-route-RestaurantId="@restaurant.Id">Edit</a>
                 </td>
 
             </tr>
