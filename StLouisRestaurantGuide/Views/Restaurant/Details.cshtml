@@ -1,5 +1,60 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@model StLouisRestaurantGuide.ViewModels.Restaurants.RestaurantDetailViewModel
+
 @{
+    ViewData["Title"] = "Details";
+}
+
+
+
+
+
+<h1>@Model.Name</h1>
+<p>
+    <b>Hour of Operations:</b><br />
+    @Model.HoursOfOperation
+</p>
+<h2>Description</h2>
+<p>@Model.Description</p>
+
+<hr />
+
+<h3>Categories</h3>
+
+<ul>
+    @foreach (var category in @Model.Categories)
+    {
+        <li>@category.Name</li>
+    }
+</ul>
+
+
+<hr />
+
+<h3>Reviews</h3>
+
+<hr />
+
+<div class="row">
+    <div class="col-md-4">
+
+        @foreach (var review in @Model.RestaurantReviews)
+        {
+            <dl>
+                <dt>@review.ReviewHeadline</dt>
+                <dd>
+                    <div>@review.Rating</div>
+                    <div>@review.Review</div>
+                </dd>
+            </dl>
+        }
+
+    </div>
+</div>
+
+
+<div>
+   
+</div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

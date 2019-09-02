@@ -71,6 +71,31 @@ namespace StLouisRestaurantGuide.Controllers
             return RedirectToAction(actionName: nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Details(int RestaurantId)
+        {
+            // context is the variable name for ApplicationDbContext. Restaurants is the table in the database
+            // where tells the query to get the row that matches the id of the restaurant. This line grabs the restaurant detail information
+            // .include tells the query to grab the related reviews for this restaurant from the restaurantReviews table. This line grabs each review for a restaurant 
+            //IList<Restaurant> restaurants = context.Restaurants.Where(a => a.Id == id).Include(a => a.RestaurantReviews).ToList();
+
+            // populate our placeholder list of activeCategoryId. we query the categoryrestaurants table for categories that contain this restaurantId
+            //List<CategoryRestaurant> activeCategoryIds = context.CategoryRestaurants.Where(a => a.RestaurantId == id).ToList();
+
+            //IList<string> activeCategoryNames = new List<string>();
+
+
+            //foreach (var item in activeCategoryIds)
+            //{
+            //    string category = context.Categories.Where(a => a.Id == item.CategoryId).Select(a=> a.Name).ToString();
+            //    activeCategoryNames.Add( category );
+
+            //}
+            //ViewBag.activeCategoryNames = activeCategoryNames;
+
+            // return View(locations);
+            return View(new RestaurantDetailViewModel(RestaurantId, context));
+        }
 
     }
 }

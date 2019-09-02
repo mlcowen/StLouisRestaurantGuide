@@ -22,7 +22,7 @@
 
         {
             <tr>
-                <td> <a asp-controller="Location" asp-action="Details" asp-route-id="@restaurant.Id">@restaurant.Name</a></td>
+                <td> <a asp-controller="Restaurant" asp-action="Details" asp-route-RestaurantId="@restaurant.Id">@restaurant.Name</a></td>
                 <td>@restaurant.Description</td>
                 <td>@restaurant.HoursOfOperation</td>
                 @if (restaurant.RestaurantReviews.Count > 0)
