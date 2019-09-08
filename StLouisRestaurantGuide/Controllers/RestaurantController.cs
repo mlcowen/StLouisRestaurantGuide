@@ -8,6 +8,7 @@ using StLouisRestaurantGuide.Data;
 using StLouisRestaurantGuide.Models;
 using StLouisRestaurantGuide.ViewModels.Categories;
 using StLouisRestaurantGuide.ViewModels.Restaurants;
+using System.Security.Claims;
 
 namespace StLouisRestaurantGuide.Controllers
 {
@@ -74,6 +75,18 @@ namespace StLouisRestaurantGuide.Controllers
         [HttpGet]
         public IActionResult Details(int RestaurantId)
         {
+
+
+   
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            //var User = await context.Users.SingleOrDefaultAsync(m => m.Id == Id_of_AspNetUser);
+            //if (User == null)
+            //{
+            //    return NotFound();
+            //}
+
             // context is the variable name for ApplicationDbContext. Restaurants is the table in the database
             // where tells the query to get the row that matches the id of the restaurant. This line grabs the restaurant detail information
             // .include tells the query to grab the related reviews for this restaurant from the restaurantReviews table. This line grabs each review for a restaurant 
