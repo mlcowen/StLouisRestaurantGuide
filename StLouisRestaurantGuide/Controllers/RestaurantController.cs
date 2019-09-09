@@ -8,6 +8,7 @@ using StLouisRestaurantGuide.Data;
 using StLouisRestaurantGuide.Models;
 using StLouisRestaurantGuide.ViewModels.Categories;
 using StLouisRestaurantGuide.ViewModels.Restaurants;
+using StLouisRestaurantGuide.ViewModels.UserVisitLists;
 using System.Security.Claims;
 
 namespace StLouisRestaurantGuide.Controllers
@@ -71,6 +72,44 @@ namespace StLouisRestaurantGuide.Controllers
             restaurant.Persist(RestaurantId, context);
             return RedirectToAction(actionName: nameof(Index));
         }
+
+        [HttpPost]
+        public IActionResult AddToVisitList(int id)
+        {
+            //get current userId
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            UserVisitList newPlaceToVisit = new UserVisitList
+            {
+                UserId = userId,
+                RestaurantId = id
+            };
+
+            //save to userViewList database
+            context.Update(newPlaceToVisit);
+            context.SaveChanges();
+
+            return RedirectToPage("./Index");
+        }
+
+
+
+
+        //public async Task<IActionResult> AddToVisitList(int id)
+        //{
+        //    //get current userId
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    UserVisitList newPlaceToVisit = new UserVisitList();
+        //    newPlaceToVisit.UserId = userId;
+        //    newPlaceToVisit.RestaurantId = id;
+
+        //    //save to userViewList database
+        //    context.UserVisitLists.Add(newPlaceToVisit);
+        //    await context.SaveChangesAsync();
+
+        //    return RedirectToPage("./UserVistList/Index");
+        //}
 
         [HttpGet]
         public IActionResult Details(int RestaurantId)

@@ -14,7 +14,27 @@ namespace StLouisRestaurantGuide.ViewModels.UserVisitLists
     public class UserVisitListListItemViewModel
     {
         public int Id { get; set; }
-        public int RestaurantId { get; set; }
+        public string ListName { get; set; }
+        public List<Restaurant> Restaurants { get; set; }
+        public int Order { get; set; }
         public IdentityUser User { get; set; }
+        public UserVisitListListItemViewModel() { }
+
+        public UserVisitListListItemViewModel(ApplicationDbContext context)
+        {
+
+
+        }
+
+        public void Persist(UserVisitList newPlaceToVisit, ApplicationDbContext context)
+        {
+            //Models.UserVisitList userVisit = new Models.UserVisitList
+            //{
+            //    Id = RestaurantId,
+               
+            //};
+            context.Update(newPlaceToVisit);
+            context.SaveChanges();
+        }
     }
 }

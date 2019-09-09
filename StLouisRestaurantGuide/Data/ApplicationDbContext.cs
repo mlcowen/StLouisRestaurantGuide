@@ -13,6 +13,7 @@ namespace StLouisRestaurantGuide.Data
         public DbSet<RestaurantReview> RestaurantReviews { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryRestaurant> CategoryRestaurants { get; set; }
+        public DbSet<UserVisitList> UserVisitLists { get; set; }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)

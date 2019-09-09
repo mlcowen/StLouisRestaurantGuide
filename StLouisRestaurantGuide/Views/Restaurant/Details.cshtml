@@ -15,7 +15,18 @@
 </p>
 <h2>Description</h2>
 <p>@Model.Description</p>
-<button type="button" class="btn btn-info">Add To My Visit Wish List</button>
+
+@* only display the button if the user is logged in *@
+@if (User.Identity.IsAuthenticated)
+{
+    @*<form method="post" asp-page-handler="AddToVisitList" asp-route-id="@Model.Id">
+            <button type="button" class="btn btn-info">Add To My Visit Wish List</button>
+        </form>*@
+
+        <a class="btn btn-info" asp-controller="Restaurant" asp-action="AddToVisitList" asp-route-id="@Model.Id">Add To My Visit Wish List</a>
+
+
+}
 <hr />
 
 <h3>Categories</h3>
@@ -53,7 +64,7 @@
 
 
 <div>
-   
+
 </div>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

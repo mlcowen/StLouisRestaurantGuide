@@ -3,15 +3,17 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using StLouisRestaurantGuide.Data;
 
 namespace StLouisRestaurantGuide.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20190908233832_AddUserVisitList")]
+    partial class AddUserVisitList
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -236,7 +238,11 @@ namespace StLouisRestaurantGuide.Data.Migrations
 
                     b.Property<string>("Region");
 
+                    b.Property<int?>("UserVisitListId");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserVisitListId");
 
                     b.ToTable("Restaurants");
                 });
@@ -268,13 +274,15 @@ namespace StLouisRestaurantGuide.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("Order");
+                    b.Property<string>("ListName");
 
-                    b.Property<int>("RestaurantId");
+                    b.Property<int>("Order");
 
                     b.Property<string>("UserId");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("UserVisitLists");
                 });
@@ -337,12 +345,26 @@ namespace StLouisRestaurantGuide.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
+            modelBuilder.Entity("StLouisRestaurantGuide.Models.Restaurant", b =>
+                {
+                    b.HasOne("StLouisRestaurantGuide.Models.UserVisitList")
+                        .WithMany("Restaurants")
+                        .HasForeignKey("UserVisitListId");
+                });
+
             modelBuilder.Entity("StLouisRestaurantGuide.Models.RestaurantReview", b =>
                 {
                     b.HasOne("StLouisRestaurantGuide.Models.Restaurant")
                         .WithMany("RestaurantReviews")
                         .HasForeignKey("RestaurantId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("StLouisRestaurantGuide.Models.UserVisitList", b =>
+                {
+                    b.HasOne("Microsoft.AspNetCore.Identity.IdentityUser", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
                 });
 #pragma warning restore 612, 618
         }
