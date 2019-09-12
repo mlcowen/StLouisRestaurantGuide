@@ -36,5 +36,16 @@ namespace StLouisRestaurantGuide.ViewModels.UserVisitLists
             context.Update(newPlaceToVisit);
             context.SaveChanges();
         }
+
+        public void AddItem(UserVisitList newPlaceToVisit, ApplicationDbContext context)
+        {
+            //Models.UserVisitList userVisit = new Models.UserVisitList
+            //{
+            //    Id = RestaurantId,
+
+            //};
+            context.Add(newPlaceToVisit);
+            context.SaveChanges();
+        }
     }
 }

@@ -73,8 +73,17 @@ namespace StLouisRestaurantGuide.Controllers
             return RedirectToAction(actionName: nameof(Index));
         }
 
+        [HttpGet]
+        public IActionResult Details(int RestaurantId)
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            return View(new RestaurantDetailViewModel(RestaurantId, context));
+        }
+
+
+        // used to save to user's list
         [HttpPost]
-        public IActionResult AddToVisitList(int id)
+        public IActionResult Details(int Id, UserVisitListListItemViewModel userVisitList )
         {
             //get current userId
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -82,71 +91,13 @@ namespace StLouisRestaurantGuide.Controllers
             UserVisitList newPlaceToVisit = new UserVisitList
             {
                 UserId = userId,
-                RestaurantId = id
+                RestaurantId = Id
             };
 
+            userVisitList.AddItem(newPlaceToVisit, context);
             //save to userViewList database
-            context.Update(newPlaceToVisit);
-            context.SaveChanges();
 
-            return RedirectToPage("./Index");
-        }
-
-
-
-
-        //public async Task<IActionResult> AddToVisitList(int id)
-        //{
-        //    //get current userId
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    UserVisitList newPlaceToVisit = new UserVisitList();
-        //    newPlaceToVisit.UserId = userId;
-        //    newPlaceToVisit.RestaurantId = id;
-
-        //    //save to userViewList database
-        //    context.UserVisitLists.Add(newPlaceToVisit);
-        //    await context.SaveChangesAsync();
-
-        //    return RedirectToPage("./UserVistList/Index");
-        //}
-
-        [HttpGet]
-        public IActionResult Details(int RestaurantId)
-        {
-
-
-   
-
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-            //var User = await context.Users.SingleOrDefaultAsync(m => m.Id == Id_of_AspNetUser);
-            //if (User == null)
-            //{
-            //    return NotFound();
-            //}
-
-            // context is the variable name for ApplicationDbContext. Restaurants is the table in the database
-            // where tells the query to get the row that matches the id of the restaurant. This line grabs the restaurant detail information
-            // .include tells the query to grab the related reviews for this restaurant from the restaurantReviews table. This line grabs each review for a restaurant 
-            //IList<Restaurant> restaurants = context.Restaurants.Where(a => a.Id == id).Include(a => a.RestaurantReviews).ToList();
-
-            // populate our placeholder list of activeCategoryId. we query the categoryrestaurants table for categories that contain this restaurantId
-            //List<CategoryRestaurant> activeCategoryIds = context.CategoryRestaurants.Where(a => a.RestaurantId == id).ToList();
-
-            //IList<string> activeCategoryNames = new List<string>();
-
-
-            //foreach (var item in activeCategoryIds)
-            //{
-            //    string category = context.Categories.Where(a => a.Id == item.CategoryId).Select(a=> a.Name).ToString();
-            //    activeCategoryNames.Add( category );
-
-            //}
-            //ViewBag.activeCategoryNames = activeCategoryNames;
-
-            // return View(locations);
-            return View(new RestaurantDetailViewModel(RestaurantId, context));
+            return RedirectToAction(actionName: nameof(Index));
         }
 
     }

@@ -4,10 +4,6 @@
     ViewData["Title"] = "Details";
 }
 
-
-
-
-
 <h1>@Model.Name</h1>
 <p>
     <b>Hour of Operations:</b><br />
@@ -19,53 +15,53 @@
 @* only display the button if the user is logged in *@
 @if (User.Identity.IsAuthenticated)
 {
-    @*<form method="post" asp-page-handler="AddToVisitList" asp-route-id="@Model.Id">
-            <button type="button" class="btn btn-info">Add To My Visit Wish List</button>
-        </form>*@
-
-        <a class="btn btn-info" asp-controller="Restaurant" asp-action="AddToVisitList" asp-route-id="@Model.Id">Add To My Visit Wish List</a>
-
-
-}
-<hr />
-
-<h3>Categories</h3>
-
-<ul>
-    @foreach (var category in @Model.Categories)
-    {
-        <li>@category.Name</li>
-    }
-</ul>
+<form asp-action="Details">
+    <input type="hidden" asp-for="@Model.Id" />
+    <input type="submit" value="Add To My Visit Wish List" class="btn btn-info" />
+</form>
+ }
 
 
-<hr />
 
-<h3>Reviews</h3>
+        <hr />
 
-<hr />
+        <h3>Categories</h3>
 
-<div class="row">
-    <div class="col-md-4">
+        <ul>
+            @foreach (var category in @Model.Categories)
+            {
+                <li>@category.Name</li>
+            }
+        </ul>
 
-        @foreach (var review in @Model.RestaurantReviews)
-        {
-            <dl>
-                <dt>@review.ReviewHeadline</dt>
-                <dd>
-                    <div>@review.Rating</div>
-                    <div>@review.Review</div>
-                </dd>
-            </dl>
+
+        <hr />
+
+        <h3>Reviews</h3>
+
+        <hr />
+
+        <div class="row">
+            <div class="col-md-4">
+
+                @foreach (var review in @Model.RestaurantReviews)
+                {
+                    <dl>
+                        <dt>@review.ReviewHeadline</dt>
+                        <dd>
+                            <div>@review.Rating</div>
+                            <div>@review.Review</div>
+                        </dd>
+                    </dl>
+                }
+
+            </div>
+        </div>
+
+
+        <div>
+
+        </div>
+        @section Scripts {
+            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
         }
-
-    </div>
-</div>
-
-
-<div>
-
-</div>
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
