@@ -17,7 +17,7 @@ namespace StLouisRestaurantGuide.ViewModels.UserVisitLists
         public string ListName { get; set; }
         public List<Restaurant> Restaurants { get; set; }
         public int Order { get; set; }
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
         public UserVisitListListItemViewModel() { }
 
         public UserVisitListListItemViewModel(ApplicationDbContext context)

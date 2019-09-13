@@ -7,7 +7,7 @@ using StLouisRestaurantGuide.Models;
 
 namespace StLouisRestaurantGuide.Data
 {
-    public class ApplicationDbContext : IdentityDbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public DbSet<Restaurant> Restaurants { get; set; }
         public DbSet<RestaurantReview> RestaurantReviews { get; set; }
