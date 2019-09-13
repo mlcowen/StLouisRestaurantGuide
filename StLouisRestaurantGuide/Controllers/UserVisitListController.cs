@@ -21,10 +21,26 @@ namespace StLouisRestaurantGuide.Controllers
             this.context = context;
         }
 
+        [HttpGet]
         public IActionResult Index()
         {
+            //get current logged in userId
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            return View(context);
+            //create a list from uservisitlist db table for the current logged in user
+            List<UserVisitList> userList = context.UserVisitLists.Where(a => a.UserId == userId).ToList();
+
+            //create placeholder list to pass data into via forloop
+            List<Restaurant> userListRestaurants = new List<Restaurant>();
+
+            foreach (var item in userList)
+            {
+                //foreach restauraunt ID in the userList - do a db search for that restaurant in the rest. db table. 
+                // add the result to the userListRestaurants list and pass that list into the view
+                userListRestaurants.Add(context.Restaurants.Where(a => a.Id == item.RestaurantId).Single());
+            }
+
+            return View(userListRestaurants);
 
         }
 
