@@ -44,28 +44,40 @@ namespace StLouisRestaurantGuide.Controllers
 
         }
 
-        [HttpPost]
-        public IActionResult AddToVisitList(int id)
+        //[HttpPost]
+        //public IActionResult AddToVisitList(int id)
+        //{
+        //    //get current userId
+        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+        //    UserVisitList newPlaceToVisit = new UserVisitList
+        //    {
+        //        UserId = userId,
+        //        RestaurantId = id
+        //    };
+
+        //    //save to userViewList database
+        //    context.Update(newPlaceToVisit);
+        //    context.SaveChanges();
+
+        //    return RedirectToPage("./Index");
+        //}
+
+        [HttpGet]
+        public IActionResult Delete(int id)
         {
             //get current userId
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            UserVisitList newPlaceToVisit = new UserVisitList
-            {
-                UserId = userId,
-                RestaurantId = id
-            };
+            // query uservistlists table for the user id. When found, delete the row with the restaurant id
+            var itemToRemove = context.UserVisitLists.Where(a => a.UserId == userId).Single(b => b.RestaurantId == id);
 
-            //save to userViewList database
-            context.Update(newPlaceToVisit);
+            context.UserVisitLists.Remove(itemToRemove);
+  
             context.SaveChanges();
 
-            return RedirectToPage("./Index");
+            return RedirectToAction("Index");
         }
-
-
-
-
 
     }
 }

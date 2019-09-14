@@ -11,18 +11,25 @@
 <div>
 
     <hr />
+    <div class="list-group">
+        @foreach (var restaurant in Model)
+        {
+            <div class="list-group-item list-group-item-action">
+                <div class="d-flex w-100 justify-content-between">
+                    <a asp-controller="Restaurant" asp-action="Details" asp-route-RestaurantId="@restaurant.Id">
+                        <h5 class="mb-1">@restaurant.Name</h5>
+                    </a>
+                   <small>@Html.ActionLink("Remove", "Delete", "UserVisitList", new { id = @restaurant.Id }, null)</small>
+                </div>
+                <p class="mb-1">@restaurant.Description</p>
+                <small>@restaurant.Address</small>
+            </div>
+        }
+    </div>
 
-    @foreach (var restaurant in Model)
-
-    {
-        <h2>
-            @restaurant.Name 
-        </h2>
-        <p>@restaurant.Description  </p>
-    }
-
-
-</div>
+    </div>
 <div>
 
 </div>
+
+
