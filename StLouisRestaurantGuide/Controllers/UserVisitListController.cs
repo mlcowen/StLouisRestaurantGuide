@@ -44,25 +44,6 @@ namespace StLouisRestaurantGuide.Controllers
 
         }
 
-        //[HttpPost]
-        //public IActionResult AddToVisitList(int id)
-        //{
-        //    //get current userId
-        //    var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-
-        //    UserVisitList newPlaceToVisit = new UserVisitList
-        //    {
-        //        UserId = userId,
-        //        RestaurantId = id
-        //    };
-
-        //    //save to userViewList database
-        //    context.Update(newPlaceToVisit);
-        //    context.SaveChanges();
-
-        //    return RedirectToPage("./Index");
-        //}
-
         [HttpGet]
         public IActionResult Delete(int id)
         {

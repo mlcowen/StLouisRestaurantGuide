@@ -22,16 +22,23 @@ namespace StLouisRestaurantGuide.Controllers
             this.context = context;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string searchString)
         {
-            //List<Restaurant> restaurants = context.Restaurants.ToList();
-            // where tells the query to get the row that matches the id of the restaurant. This pulls data from the restaurantReview table 
-            //List<Restaurant> restaurants = context.Restaurants.Include(a => a.RestaurantReviews).ToList();
-
+            // get all restaurants from DB
             List<RestaurantListItemViewModel> restaurants = RestaurantListItemViewModel.GetRestaurants(context);
+
+            // if there is a searchString then we need to not return the full list of restaurants
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                //converter searchString to lower. We also have to use toLower in linq query so searches are always lowercase
+                searchString = searchString.ToLower();
+                // filter the list of restaurants to only include the restaurants' with the searchString Name
+                restaurants = restaurants.Where(s => s.Name.ToLower().Contains(searchString)).ToList();
+            }
 
             return View(restaurants);
         }
+
 
         [HttpGet]
         public IActionResult Create()
